@@ -1,16 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/screens/signup_screen.dart';
+import 'package:task_manager/screens/signIn_screen.dart';
 import '../widgets/screen_background.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -25,7 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 const SizedBox(height: 82),
                 Text(
-                  'Get Started With',
+                  'Join With Us',
                   style: textTheme.displaySmall
                       ?.copyWith(fontWeight: FontWeight.w500),
                 ),
@@ -35,13 +35,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 Center(
                   child: Column(
                     children: [
-                      TextButton(
-                        onPressed: _onTapForgotPasswordButton,
-                        child: const Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ),
                       _buildSignUpSection(),
                     ],
                   ),
@@ -60,6 +53,21 @@ class _SignInScreenState extends State<SignInScreen> {
         TextFormField(
           keyboardType: TextInputType.emailAddress,
           decoration: const InputDecoration(hintText: 'Email'),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(hintText: 'First Name'),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(hintText: 'Last Name'),
+        ),
+        const SizedBox(height: 8),
+        TextFormField(
+          keyboardType: TextInputType.emailAddress,
+          decoration: const InputDecoration(hintText: 'Mobile'),
         ),
         const SizedBox(height: 8),
         TextFormField(
@@ -83,10 +91,10 @@ class _SignInScreenState extends State<SignInScreen> {
             fontWeight: FontWeight.w600,
             fontSize: 14,
             letterSpacing: 0.5),
-        text: "Don't have an account? ",
+        text: "Have an account? ",
         children: [
           TextSpan(
-              text: 'Sign Up',
+              text: 'Sign In',
               style: const TextStyle(color: Colors.green),
               recognizer: TapGestureRecognizer()..onTap = _onTapSignUp),
         ],
@@ -103,6 +111,6 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _onTapSignUp() {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> const SignUpScreen(),),);
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const SignInScreen()), (route)=> false);
   }
 }
