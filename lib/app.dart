@@ -3,16 +3,25 @@ import 'package:task_manager/screens/splash_screen.dart';
 
 class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       theme: ThemeData(
-        colorSchemeSeed: Colors.green,
-        inputDecorationTheme: _inputDecorationTheme(),
-        elevatedButtonTheme: _elevatedButtonThemeData(),
-      ),
+          colorSchemeSeed: Colors.green,
+          inputDecorationTheme: _inputDecorationTheme(),
+          elevatedButtonTheme: _elevatedButtonThemeData(),
+          floatingActionButtonTheme: _buildFlotingActionTheme()),
       home: const SplashScreen(),
+    );
+  }
+
+  FloatingActionButtonThemeData _buildFlotingActionTheme() {
+    return FloatingActionButtonThemeData(
+      backgroundColor: Colors.green,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(26),
+      ),
     );
   }
 
@@ -36,19 +45,14 @@ class TaskManagerApp extends StatelessWidget {
         hintStyle: const TextStyle(color: Colors.grey, letterSpacing: 1.2),
         labelStyle: const TextStyle(color: Colors.green),
         prefixIconColor: Colors.green.shade800,
-        enabledBorder:_inputBorder(),
+        enabledBorder: _inputBorder(),
         focusedBorder: _inputBorder(),
-        border: _inputBorder()
-      );
+        border: _inputBorder());
   }
 
-  OutlineInputBorder _inputBorder(){
+  OutlineInputBorder _inputBorder() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-      borderSide: const BorderSide(
-        color: Colors.white
-      )
-
-    );
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: Colors.white));
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/screens/forgot_pass_email_verify_screen.dart';
+import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/signup_screen.dart';
 import '../widgets/screen_background.dart';
 
@@ -95,11 +97,11 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _onTapNextButton() {
-    // TODO: implement on tap next button
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const MainBottomNavbarScreen()), (route)=> false);
   }
 
   void _onTapForgotPasswordButton() {
-    //TODO:- Implement On Tap Forgotten Pass
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> const ForgotPasswdEmailScreen(),),);
   }
 
   void _onTapSignUp() {
