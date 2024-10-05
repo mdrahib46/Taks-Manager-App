@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/task_card.dart';
+
 class InProgressTaskScreen extends StatefulWidget {
   const InProgressTaskScreen({super.key});
 
@@ -10,6 +12,14 @@ class InProgressTaskScreen extends StatefulWidget {
 class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('In Progress Task Screen'),);
+    return  ListView.separated(
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return const TaskCard();
+      },
+      separatorBuilder: (context, index) {
+        return const SizedBox(height: 8);
+      },
+    );
   }
 }

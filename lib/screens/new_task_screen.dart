@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/task_card.dart';
 import '../widgets/task_summary_card.dart';
 import 'add_new_task_screen.dart';
 
@@ -16,6 +17,17 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       body: Column(
         children: [
           _buildSummarySection(),
+          Expanded(
+            child: ListView.separated(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const TaskCard();
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 8);
+              },
+            ),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -28,33 +40,33 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     );
   }
 
-  Padding _buildSummarySection() {
+  Widget _buildSummarySection() {
     return const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                TaskSummaryCard(
-                  count: 9,
-                  title: 'new',
-                ),
-                TaskSummaryCard(
-                  count: 9,
-                  title: 'Completed',
-                ),
-                TaskSummaryCard(
-                  count: 9,
-                  title: 'Canceled',
-                ),
-                TaskSummaryCard(
-                  count: 9,
-                  title: 'Inprogress',
-                ),
-              ],
+      padding: EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            TaskSummaryCard(
+              count: 9,
+              title: 'new',
             ),
-          ),
-        );
+            TaskSummaryCard(
+              count: 9,
+              title: 'Completed',
+            ),
+            TaskSummaryCard(
+              count: 9,
+              title: 'Canceled',
+            ),
+            TaskSummaryCard(
+              count: 9,
+              title: 'InProgress',
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void _onTapFAB() {
@@ -62,5 +74,3 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         MaterialPageRoute(builder: (context) => const AddNewTaskScreen()));
   }
 }
-
-
