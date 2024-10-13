@@ -31,6 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ScreenBackground(
         child: SingleChildScrollView(
           child: Padding(
@@ -41,15 +42,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 const SizedBox(height: 82),
                 Text(
                   'Join With Us',
-                  style: textTheme.displaySmall
-                      ?.copyWith(fontWeight: FontWeight.w500),
+                  style: textTheme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 const SizedBox(height: 24),
                 _buildSignUpForm(),
                 const SizedBox(height: 24),
                 Center(
                   child: _buildHaveAccountSection(),
-                )
+                ),
               ],
             ),
           ),
@@ -72,6 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               if (value == null) {
                 return 'Enter your email !';
               }
+              return null;
             },
           ),
           const SizedBox(height: 8),
@@ -84,6 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               if (value == null) {
                 return "Enter first name";
               }
+              return null;
             },
           ),
           const SizedBox(height: 8),
@@ -93,9 +97,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: const InputDecoration(hintText: 'Last Name'),
             validator: (String? value) {
-              if(value == null){
+              if (value == null) {
                 return "Enter last name";
               }
+              return null;
             },
           ),
           const SizedBox(height: 8),
@@ -105,9 +110,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: const InputDecoration(hintText: 'Mobile'),
             validator: (String? value) {
-              if(value == null){
+              if (value == null) {
                 return "Enter your mobile number";
               }
+              return null;
             },
           ),
           const SizedBox(height: 8),
@@ -116,10 +122,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: const InputDecoration(hintText: 'Password'),
-            validator: (String? value){
-              if(value == null){
+            validator: (String? value) {
+              if (value == null) {
                 return "Enter your  password";
               }
+              return null;
             },
           ),
           const SizedBox(height: 24),
@@ -128,7 +135,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             replacement: const CenterCircularProgressIndicator(),
             child: ElevatedButton(
               onPressed: _onTapNextButton,
-              child: const Icon(Icons.arrow_circle_right_outlined),
+              child: const Icon(
+                Icons.arrow_circle_right_outlined,
+              ),
             ),
           ),
         ],
@@ -140,10 +149,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return RichText(
       text: TextSpan(
         style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: 14,
-            letterSpacing: 0.5),
+          color: Colors.black,
+          fontWeight: FontWeight.w600,
+          fontSize: 14,
+          letterSpacing: 0.5,
+        ),
         text: "Have an account? ",
         children: [
           TextSpan(
@@ -157,8 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void _onTapNextButton() {
     if (_formKeY.currentState!.validate()) {
-     _signUp();
-
+      _signUp();
     }
   }
 
@@ -179,7 +188,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       "lastName": _lastNameTEController.text.trim(),
       "mobile": _mobileTEController.text.trim(),
       "password": _passTEController.text,
-      "photo":""
+      "photo": ""
     };
 
     NetworkResponse response = await NetworkCaller.postRequest(
@@ -190,11 +199,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {});
 
     if (response.isSuccess) {
-      // _clearTextFields();
-      showSnackBar(context,'New user created');
+      _clearTextFields();
+      showSnackBar(context, 'New user created');
     } else {
       showSnackBar(context, response.errorMessage, true);
     }
+  }
+
+  void _clearTextFields() {
+    _emailTEController.clear();
+    _firstNameTEController.clear();
+    _lastNameTEController.clear();
+    _mobileTEController.clear();
+    _passTEController.clear();
   }
 
   @override

@@ -9,6 +9,13 @@ class AddNewTaskScreen extends StatefulWidget {
 }
 
 class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
+
+  bool _inProgress = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _titleTEController = TextEditingController();
+  final TextEditingController _descriptionTeController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,27 +31,47 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'Title'),
-              ),
-              const SizedBox(height: 6),
-              TextFormField(
-                decoration: const InputDecoration(hintText: 'Description'),
-                maxLines: 10,
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_circle_right_outlined,
-                ),
-              ),
+              _buildAddNewTaskSection(context),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _buildAddNewTaskSection(BuildContext context) {
+    return Form(
+
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _titleTEController,
+            decoration: const InputDecoration(hintText: 'Title'),
+          ),
+          const SizedBox(height: 6),
+          TextFormField(
+            controller:  _descriptionTeController,
+            decoration: const InputDecoration(hintText: 'Description'),
+            maxLines: 10,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_circle_right_outlined,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _moveToNextButton(){
+    //Todo:- Implement Move To Next Section
+  }
+
+
+
 }

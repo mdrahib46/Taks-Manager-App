@@ -3,4 +3,7 @@ class Urls{
 
   static const String registration = "$_baseUrl/registration";
   static const String login = "$_baseUrl/login";
+  static String emailVerification(String email) => "$_baseUrl/RecoverVerifyEmail/$email";
+  static String verifyOTP(String email, String otp) => "$_baseUrl/RecoverVerifyOtp/$email/$otp";
+  static String resetPassword = "$_baseUrl/RecoverResetPassword";
 }
