@@ -6,4 +6,6 @@ class Urls{
   static String emailVerification(String email) => "$_baseUrl/RecoverVerifyEmail/$email";
   static String verifyOTP(String email, String otp) => "$_baseUrl/RecoverVerifyOtp/$email/$otp";
   static String resetPassword = "$_baseUrl/RecoverResetPassword";
+  static String createTask = "$_baseUrl/createTask";
+
 }

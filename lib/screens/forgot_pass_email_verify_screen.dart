@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/data/utils/urls.dart';
 import 'package:task_manager/screens/forgot_pass_otp_screen.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
+import 'package:task_manager/widgets/circularProgressIndicator.dart';
 import 'package:task_manager/widgets/snackbar_message.dart';
 import '../data/Service/network_caller.dart';
 import '../data/models/network_response.dart';
@@ -87,7 +88,7 @@ class _ForgotPasswdEmailScreenState extends State<ForgotPasswdEmailScreen> {
           const SizedBox(height: 24),
           Visibility(
             visible: _inProgress == false,
-            replacement: const Center(child: CircularProgressIndicator(),),
+            replacement: const Center(child: CenterCircularProgressIndicator(),),
             child: ElevatedButton(
               onPressed: _onTapNextButton,
               child: const Icon(Icons.arrow_circle_right_outlined),

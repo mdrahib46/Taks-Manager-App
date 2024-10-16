@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/data/Service/network_caller.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
+import 'package:task_manager/widgets/circularProgressIndicator.dart';
 import 'package:task_manager/widgets/snackbar_message.dart';
 import '../data/utils/urls.dart';
 import '../widgets/screen_background.dart';
@@ -100,9 +101,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             },
           ),
           const SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: _onTapNextButton,
-            child: const Icon(Icons.arrow_circle_right_outlined),
+          Visibility(
+            visible: _inProgress == false,
+            replacement: const Center(child: const CenterCircularProgressIndicator(),),
+            child: ElevatedButton(
+              onPressed: _onTapNextButton,
+              child: const Icon(Icons.arrow_circle_right_outlined),
+            ),
           ),
         ],
       ),
