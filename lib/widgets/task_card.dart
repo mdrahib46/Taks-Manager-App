@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/data/models/task_model.dart';
 
 class TaskCard extends StatefulWidget {
   const TaskCard({
-    super.key,
+    super.key, required this.taskModel,
   });
+
+  final TaskModel taskModel;
 
   @override
   State<TaskCard> createState() => _TaskCardState();
@@ -22,11 +25,11 @@ class _TaskCardState extends State<TaskCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Title of the Task',
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme.of(context).textTheme.titleMedium,
+              widget.taskModel.title ?? '',
             ),
-            const Text('Description of the Task'),
-            const Text('Date : 12/03/2024'),
+            Text(widget.taskModel.description ?? ''),
+            Text('Date : ${widget.taskModel.createdDate}'),
             const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

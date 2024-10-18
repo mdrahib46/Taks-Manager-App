@@ -15,7 +15,7 @@ class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
     return  ListView.separated(
       itemCount: 10,
       itemBuilder: (context, index) {
-        return const TaskCard();
+        // return TaskCard(taskModel: widget.,);
       },
       separatorBuilder: (context, index) {
         return const SizedBox(height: 8);

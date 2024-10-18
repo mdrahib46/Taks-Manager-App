@@ -17,8 +17,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   bool _inProgress = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _titleTEController = TextEditingController();
-  final TextEditingController _descriptionTeController =
-      TextEditingController();
+  final TextEditingController _descriptionTeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +88,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     );
   }
 
-  Future<void> _addNewTask() async {
+  Future<void> _addNewTaskList() async {
     _inProgress = true;
     setState(() {});
     Map<String, dynamic> requestBody = {
@@ -102,6 +101,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     _inProgress = false;
     setState(() {});
     if (response.isSuccess) {
+
       _clearTextField();
       showSnackBar(context, "New task has been added successfully");
       Navigator.pop(context);
@@ -110,11 +110,9 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     }
   }
 
-
-
   void _onTapSubmitButton() {
     if(_formKey.currentState!.validate()){
-      _addNewTask();
+      _addNewTaskList();
     }
   }
 

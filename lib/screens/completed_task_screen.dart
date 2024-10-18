@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/data/models/task_model.dart';
 
 import '../widgets/task_card.dart';
 
@@ -10,12 +11,15 @@ class CompletedTaskScreen extends StatefulWidget {
 }
 
 class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
+
+  List<TaskModel> _completedTaskModel = [];
+
   @override
   Widget build(BuildContext context) {
     return  ListView.separated(
-      itemCount: 10,
+      itemCount: _completedTaskModel.length,
       itemBuilder: (context, index) {
-        return const TaskCard();
+        return TaskCard(taskModel: _completedTaskModel[index],);
       },
       separatorBuilder: (context, index) {
         return const SizedBox(height: 8);
