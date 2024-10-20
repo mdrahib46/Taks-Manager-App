@@ -17,25 +17,42 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   bool _inProgress = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _titleTEController = TextEditingController();
-  final TextEditingController _descriptionTeController = TextEditingController();
+  final TextEditingController _descriptionTeController =
+      TextEditingController();
+
+  bool _shouldRefreshPreviousPage = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const TMAppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 42),
-              Text(
-                'Add New Task',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-              const SizedBox(height: 16),
-              _buildAddNewTaskSection(context),
-            ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          return;
+        }
+        print("Poping Add new task screen with result $_shouldRefreshPreviousPage");
+        Navigator.pop(context, _shouldRefreshPreviousPage);
+      },
+      child: Scaffold(
+        appBar: const TMAppBar(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 42),
+                Text(
+                  'Add New Task',
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                _buildAddNewTaskSection(context),
+              ],
+            ),
           ),
         ),
       ),
@@ -50,8 +67,9 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
           TextFormField(
             controller: _titleTEController,
             decoration: const InputDecoration(hintText: 'Title'),
-            validator: (String? value){
-              if(value?.trim().isEmpty ??true){
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (String? value) {
+              if (value?.trim().isEmpty ?? true) {
                 return 'Enter task title';
               }
               return null;
@@ -63,8 +81,8 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             decoration: const InputDecoration(hintText: 'Description'),
             maxLines: 10,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (String? value){
-              if(value!.isEmpty ?? true){
+            validator: (String? value) {
+              if (value!.isEmpty ?? true) {
                 return "Enter task description";
               }
               return null;
@@ -73,7 +91,9 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
           const SizedBox(height: 16),
           Visibility(
             visible: !_inProgress,
-            replacement: const Center(child: CenterCircularProgressIndicator(),),
+            replacement: const Center(
+              child: CenterCircularProgressIndicator(),
+            ),
             child: ElevatedButton(
               onPressed: () {
                 _onTapSubmitButton();
@@ -101,17 +121,17 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     _inProgress = false;
     setState(() {});
     if (response.isSuccess) {
-
+      _shouldRefreshPreviousPage = true;
       _clearTextField();
       showSnackBar(context, "New task has been added successfully");
-      Navigator.pop(context);
+
     } else {
       showSnackBar(context, "New task add failed....!", true);
     }
   }
 
   void _onTapSubmitButton() {
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       _addNewTaskList();
     }
   }

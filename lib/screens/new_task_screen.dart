@@ -30,25 +30,30 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          _buildSummarySection(),
-          Expanded(
-            child: Visibility(
-              visible: !_inProgress,
-              replacement: const CenterCircularProgressIndicator(),
-              child: ListView.separated(
-                itemCount: _newTaskList.length,
-                itemBuilder: (context, index) {
-                  return TaskCard(taskModel: _newTaskList[index],);
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 8);
-                },
+      body: RefreshIndicator(
+        onRefresh: ()async{
+          _getNewTaskList();
+        },
+        child: Column(
+          children: [
+            _buildSummarySection(),
+            Expanded(
+              child: Visibility(
+                visible: !_inProgress,
+                replacement: const CenterCircularProgressIndicator(),
+                child: ListView.separated(
+                  itemCount: _newTaskList.length,
+                  itemBuilder: (context, index) {
+                    return TaskCard(taskModel: _newTaskList[index],);
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 8);
+                  },
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _onTapFAB,
@@ -106,12 +111,14 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   }
 
 
-  void _onTapFAB() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
+  void _onTapFAB() async{
+    final bool? shouldRefresh = await Navigator.push(
+      context, MaterialPageRoute(
         builder: (context) => const AddNewTaskScreen(),
       ),
     );
+    if(shouldRefresh == true){
+      _getNewTaskList();
+    }
   }
 }

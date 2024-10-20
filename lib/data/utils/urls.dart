@@ -8,5 +8,8 @@ class Urls{
   static String resetPassword = "$_baseUrl/RecoverResetPassword";
   static String createTask = "$_baseUrl/createTask";
   static String taskList = "$_baseUrl/listTaskByStatus/New";
+  static String completedTaskList = "$_baseUrl/listTaskByStatus/Completed";
+  static String inProgressTaskList = "$_baseUrl/listTaskByStatus/inProgress";
+  static String canceledTaskList = "$_baseUrl/listTaskByStatus/Canceled";
 
 }
