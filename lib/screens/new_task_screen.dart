@@ -103,12 +103,24 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       final TaskListModel taskListModel =
           TaskListModel.fromJson(response.responseData);
       _newTaskList = taskListModel.taskList ?? [];
+
     } else {
       showSnackBar(context, response.errorMessage, true);
     }
     _inProgress = false;
     setState(() {});
   }
+
+
+  // Future<void> _deleteTask(String taskId) async{
+  //  final NetworkResponse response = await NetworkCaller.getRequest(url: Urls.deleteTaskList(taskId));
+  //  if(response.isSuccess){
+  //    TaskListModel taskListModel = TaskListModel.fromJson(response.responseData);
+  //    // taskListModel.taskLis
+  //
+  //  }
+  //
+  // }
 
 
   void _onTapFAB() async{

@@ -30,7 +30,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
         if (didPop) {
           return;
         }
-        print("Poping Add new task screen with result $_shouldRefreshPreviousPage");
+        
         Navigator.pop(context, _shouldRefreshPreviousPage);
       },
       child: Scaffold(
