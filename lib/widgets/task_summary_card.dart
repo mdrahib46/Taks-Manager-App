@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TaskSummaryCard extends StatelessWidget {
+class TaskSummaryCard extends StatefulWidget {
   const TaskSummaryCard({
     super.key,
     required this.title,
@@ -10,6 +10,11 @@ class TaskSummaryCard extends StatelessWidget {
   final String title;
   final int count;
 
+  @override
+  State<TaskSummaryCard> createState() => _TaskSummaryCardState();
+}
+
+class _TaskSummaryCardState extends State<TaskSummaryCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -21,7 +26,7 @@ class TaskSummaryCard extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                '$count',
+                '${widget.count}',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -29,7 +34,7 @@ class TaskSummaryCard extends StatelessWidget {
               const SizedBox(height: 4),
               FittedBox(
                 child: Text(
-                  title,
+                  widget.title,
                   style: const TextStyle(
                     color: Colors.grey,
                   ),
@@ -41,4 +46,6 @@ class TaskSummaryCard extends StatelessWidget {
       ),
     );
   }
+
+
 }

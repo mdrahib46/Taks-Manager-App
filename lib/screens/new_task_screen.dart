@@ -31,7 +31,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: ()async{
+        onRefresh: () async {
           _getNewTaskList();
         },
         child: Column(
@@ -44,7 +44,10 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 child: ListView.separated(
                   itemCount: _newTaskList.length,
                   itemBuilder: (context, index) {
-                    return TaskCard(taskModel: _newTaskList[index],);
+                    return TaskCard(
+                      onRefreshList: _getNewTaskList,
+                      taskModel: _newTaskList[index],
+                    );
                   },
                   separatorBuilder: (context, index) {
                     return const SizedBox(height: 8);
@@ -99,11 +102,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     _inProgress = true;
     final NetworkResponse response =
         await NetworkCaller.getRequest(url: Urls.taskList);
+    setState(() {});
     if (response.isSuccess) {
       final TaskListModel taskListModel =
           TaskListModel.fromJson(response.responseData);
       _newTaskList = taskListModel.taskList ?? [];
-
     } else {
       showSnackBar(context, response.errorMessage, true);
     }
@@ -111,25 +114,14 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     setState(() {});
   }
 
-
-  // Future<void> _deleteTask(String taskId) async{
-  //  final NetworkResponse response = await NetworkCaller.getRequest(url: Urls.deleteTaskList(taskId));
-  //  if(response.isSuccess){
-  //    TaskListModel taskListModel = TaskListModel.fromJson(response.responseData);
-  //    // taskListModel.taskLis
-  //
-  //  }
-  //
-  // }
-
-
-  void _onTapFAB() async{
+  void _onTapFAB() async {
     final bool? shouldRefresh = await Navigator.push(
-      context, MaterialPageRoute(
+      context,
+      MaterialPageRoute(
         builder: (context) => const AddNewTaskScreen(),
       ),
     );
-    if(shouldRefresh == true){
+    if (shouldRefresh == true) {
       _getNewTaskList();
     }
   }

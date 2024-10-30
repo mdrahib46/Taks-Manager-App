@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager/data/Service/network_caller.dart';
+import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/data/models/task_model.dart';
+import 'package:task_manager/data/utils/urls.dart';
+import 'package:task_manager/widgets/snackbar_message.dart';
 
 class TaskCard extends StatefulWidget {
   const TaskCard({
-    super.key, required this.taskModel,
+    super.key,
+    required this.taskModel,
+    required this.onRefreshList,
   });
 
   final TaskModel taskModel;
+  final VoidCallback onRefreshList;
 
   @override
   State<TaskCard> createState() => _TaskCardState();
 }
 
 class _TaskCardState extends State<TaskCard> {
+  String _selectedState = ' ';
+  bool _changeStatusInProgress = false;
+
+  @override
+  void initState() {
+    _selectedState = widget.taskModel.status!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -38,12 +54,18 @@ class _TaskCardState extends State<TaskCard> {
                 buildTaskChip(),
                 Wrap(
                   children: [
-                    IconButton(
-                        onPressed: _onTapEditButton,
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.green,
-                        )),
+                    Visibility(
+                      visible: _changeStatusInProgress == false,
+                      replacement: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      child: IconButton(
+                          onPressed: _onTapEditButton,
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.green,
+                          )),
+                    ),
                     IconButton(
                       onPressed: _onTapDeleteButton,
                       icon: const Icon(
@@ -71,23 +93,46 @@ class _TaskCardState extends State<TaskCard> {
             title: const Text('Edit Status'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
-              children: ["New", "Completed", "Canceled", "Completed"].map((e) {
+              children: ["New", "Completed", "Canceled", "inProgress"].map((e) {
                 return ListTile(
+                  onTap: () {
+                    _changeTaskStatus(e);
+                    Navigator.pop(context);
+                  },
                   title: Text(e),
+                  selected: _selectedState == e,
+                  trailing:
+                      _selectedState == e ? const Icon(Icons.check) : null,
                 );
               }).toList(),
             ),
             actions: [
-              TextButton(onPressed: () {
-                Navigator.pop(context);
-              }, child: const Text('Cancel')),
               TextButton(
-                onPressed: () {},
-                child: const Text('Ok'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
               ),
             ],
           );
         });
+  }
+
+  Future<void> _changeTaskStatus(String newStatus) async {
+    _changeStatusInProgress = true;
+    setState(() {});
+    final NetworkResponse response = await NetworkCaller.getRequest(
+        url: Urls.updateTaskStatus(widget.taskModel.sId!, newStatus));
+    _changeStatusInProgress = false;
+    setState(() {});
+    if (response.isSuccess) {
+      widget.onRefreshList;
+      setState(() {});
+    } else {
+      _changeStatusInProgress = false;
+      setState(() {});
+      showSnackBar(context, response.errorMessage, true);
+    }
   }
 
   Widget buildTaskChip() {

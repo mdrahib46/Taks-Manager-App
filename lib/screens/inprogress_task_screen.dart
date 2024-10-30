@@ -40,7 +40,7 @@ class _InProgressTaskScreenState extends State<InProgressTaskScreen> {
         child: ListView.separated(
           itemCount: _inProgressTaskList.length,
           itemBuilder: (context, index) {
-            return TaskCard(taskModel: _inProgressTaskList[index],);
+            return TaskCard(taskModel: _inProgressTaskList[index], onRefreshList: _getInProgressTaskList,);
           },
           separatorBuilder: (context, index) {
             return const SizedBox(height: 8);

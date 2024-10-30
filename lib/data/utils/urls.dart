@@ -1,5 +1,5 @@
 class Urls{
-  static const String _baseUrl = "http://152.42.163.176:2006/api/v1";
+  static const String _baseUrl = "http://35.73.30.144:2005/api/v1";
 
   static const String registration = "$_baseUrl/registration";
   static const String login = "$_baseUrl/login";
@@ -11,6 +11,7 @@ class Urls{
   static String completedTaskList = "$_baseUrl/listTaskByStatus/Completed";
   static String inProgressTaskList = "$_baseUrl/listTaskByStatus/inProgress";
   static String canceledTaskList = "$_baseUrl/listTaskByStatus/Canceled";
-  static String deleteTaskList(String id) => "$_baseUrl/deleteTask/$id";
+  // static String deleteTaskList(String taskId) => "$_baseUrl/deleteTask/$taskId";
+  static String updateTaskStatus(String taskId, String taskStatus) => "$_baseUrl/updateTaskStatus/$taskId/$taskStatus";
 
 }

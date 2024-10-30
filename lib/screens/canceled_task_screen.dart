@@ -38,7 +38,7 @@ class _CanceledTaskScreenState extends State<CanceledTaskScreen> {
         child: ListView.separated(
           itemCount: _canceledTaskList.length,
           itemBuilder: (context, index) {
-            return TaskCard(taskModel: _canceledTaskList[index],);
+            return TaskCard(taskModel: _canceledTaskList[index], onRefreshList: _getCanceledTaskList,);
           },
           separatorBuilder: (context, index) {
             return const SizedBox(height: 8);
