@@ -4,7 +4,7 @@ import 'package:task_manager/data/Service/network_caller.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
-import 'package:task_manager/widgets/snackbar_message.dart';
+import 'package:task_manager/widgets/snackBar_message.dart';
 import '../data/utils/urls.dart';
 import '../widgets/screen_background.dart';
 

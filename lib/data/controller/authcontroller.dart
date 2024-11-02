@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task_manager/data/models/login_model.dart';
+import 'package:task_manager/data/models/task_status_count_model.dart';
 
 class AuthController{
   static const String _accessTokenKey = 'access-token';

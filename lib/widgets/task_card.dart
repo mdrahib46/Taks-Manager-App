@@ -3,7 +3,8 @@ import 'package:task_manager/data/Service/network_caller.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/data/models/task_model.dart';
 import 'package:task_manager/data/utils/urls.dart';
-import 'package:task_manager/widgets/snackbar_message.dart';
+import 'package:task_manager/widgets/circularProgressIndicator.dart';
+import 'package:task_manager/widgets/snackBar_message.dart';
 
 class TaskCard extends StatefulWidget {
   const TaskCard({
@@ -22,6 +23,7 @@ class TaskCard extends StatefulWidget {
 class _TaskCardState extends State<TaskCard> {
   String _selectedState = ' ';
   bool _changeStatusInProgress = false;
+  bool _deleteTaskInProgress = false;
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _TaskCardState extends State<TaskCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: Colors.green.shade50,
       elevation: 0,
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: Padding(
@@ -56,9 +58,7 @@ class _TaskCardState extends State<TaskCard> {
                   children: [
                     Visibility(
                       visible: _changeStatusInProgress == false,
-                      replacement: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      replacement: const CenterCircularProgressIndicator(),
                       child: IconButton(
                           onPressed: _onTapEditButton,
                           icon: const Icon(
@@ -66,11 +66,17 @@ class _TaskCardState extends State<TaskCard> {
                             color: Colors.green,
                           )),
                     ),
-                    IconButton(
-                      onPressed: _onTapDeleteButton,
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.redAccent,
+                    Visibility(
+                      visible: !_deleteTaskInProgress,
+                      replacement: const Center(
+                        child: CenterCircularProgressIndicator(),
+                      ),
+                      child: IconButton(
+                        onPressed: _onTapDeleteButton,
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.redAccent,
+                        ),
                       ),
                     ),
                   ],
@@ -83,7 +89,10 @@ class _TaskCardState extends State<TaskCard> {
     );
   }
 
-  void _onTapDeleteButton() {}
+  void _onTapDeleteButton() {
+    _deleteTask();
+    setState(() {});
+  }
 
   void _onTapEditButton() {
     showDialog(
@@ -97,7 +106,9 @@ class _TaskCardState extends State<TaskCard> {
                 return ListTile(
                   onTap: () {
                     _changeTaskStatus(e);
-                    Navigator.pop(context);
+                    setState(() {
+                      Navigator.pop(context);
+                    });
                   },
                   title: Text(e),
                   selected: _selectedState == e,
@@ -127,11 +138,31 @@ class _TaskCardState extends State<TaskCard> {
     setState(() {});
     if (response.isSuccess) {
       widget.onRefreshList;
+      showSnackBar(context, "Successful....!");
       setState(() {});
     } else {
       _changeStatusInProgress = false;
       setState(() {});
       showSnackBar(context, response.errorMessage, true);
+    }
+  }
+
+  Future<void> _deleteTask() async {
+    _deleteTaskInProgress = true;
+    setState(() {});
+
+    final NetworkResponse response = await NetworkCaller.getRequest(
+        url: Urls.deleteTaskList(widget.taskModel.sId!));
+    _deleteTaskInProgress = false;
+    setState(() {});
+    if (response.isSuccess) {
+      widget.onRefreshList();
+      showSnackBar(context, 'Task has been deleted');
+      setState(() {});
+    } else {
+      _deleteTaskInProgress = false;
+      showSnackBar(context, response.errorMessage, true);
+      setState(() {});
     }
   }
 

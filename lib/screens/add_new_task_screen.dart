@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/data/Service/network_caller.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
-import 'package:task_manager/widgets/snackbar_message.dart';
+import 'package:task_manager/widgets/snackBar_message.dart';
 import 'package:task_manager/widgets/tm_appbar.dart';
 import '../data/utils/urls.dart';
 
@@ -30,7 +30,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
         if (didPop) {
           return;
         }
-        
+
         Navigator.pop(context, _shouldRefreshPreviousPage);
       },
       child: Scaffold(

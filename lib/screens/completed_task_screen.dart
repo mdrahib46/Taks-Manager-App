@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/data/models/task_list_model.dart';
 import 'package:task_manager/data/models/task_model.dart';
-import 'package:task_manager/widgets/snackbar_message.dart';
+import 'package:task_manager/widgets/snackBar_message.dart';
 import '../data/Service/network_caller.dart';
 import '../data/utils/urls.dart';
 import '../widgets/task_card.dart';

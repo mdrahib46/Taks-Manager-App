@@ -7,7 +7,7 @@ import 'package:task_manager/screens/forgot_pass_email_verify_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/signup_screen.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
-import 'package:task_manager/widgets/snackbar_message.dart';
+import 'package:task_manager/widgets/snackBar_message.dart';
 import '../data/utils/urls.dart';
 import '../widgets/screen_background.dart';
 
