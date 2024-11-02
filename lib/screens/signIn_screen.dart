@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager/data/Service/network_caller.dart';
 import 'package:task_manager/data/controller/authcontroller.dart';
+import 'package:task_manager/data/models/login_model.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/screens/forgot_pass_email_verify_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
@@ -129,7 +130,9 @@ class _SignInScreenState extends State<SignInScreen> {
     _inProgress = false;
     setState(() {});
     if (response.isSuccess) {
-      await AuthController.saveAccessToken(response.responseData['token']);
+      LoginModel loginModel = LoginModel.fromJson(response.responseData);
+      await AuthController.saveAccessToken(loginModel.token!);
+      await AuthController.saveUserData(loginModel.data!);
       showSnackBar(context, "Login Successfully....");
       Navigator.pushAndRemoveUntil(
           context,

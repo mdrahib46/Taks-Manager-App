@@ -3,22 +3,24 @@ import 'package:task_manager/data/controller/authcontroller.dart';
 import 'package:task_manager/screens/profile_screen.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 
-class TMAppBar extends StatelessWidget implements PreferredSizeWidget{
-  const TMAppBar({
-    super.key,
-    this.isProfileScreenOpen =  false
-  });
+class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const TMAppBar({super.key, this.isProfileScreenOpen = false});
 
   final bool isProfileScreenOpen;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        if(isProfileScreenOpen){
+      onTap: () {
+        if (isProfileScreenOpen) {
           return;
         }
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> const ProfileScreen(),),);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfileScreen(),
+          ),
+        );
       },
       child: AppBar(
         backgroundColor: Colors.green,
@@ -30,19 +32,37 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget{
               radius: 16,
             ),
             const SizedBox(width: 10),
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Rabbil hasan', style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600),),
-                  Text('rabbil@gmail.com', style: TextStyle(fontSize: 14, color: Colors.white),),
+                  Text(
+                   AuthController.userData?.userFullName ?? ' ',
+                    style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  Text(
+                    AuthController.userData?.email ?? ' ',
+                    style: TextStyle(fontSize: 14, color: Colors.white),
+                  ),
                 ],
               ),
             ),
-            IconButton(onPressed: (){
-              AuthController.clearUserData();
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> const SignInScreen()), (route)=> false);
-            }, icon: const Icon(Icons.logout, color: Colors.white,))
+            IconButton(
+                onPressed: () {
+                  AuthController.clearUserData();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SignInScreen()),
+                      (route) => false);
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ))
           ],
         ),
       ),
@@ -50,5 +70,5 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget{
   }
 
   @override
-  Size get preferredSize =>const  Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

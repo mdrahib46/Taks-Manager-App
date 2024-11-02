@@ -4,7 +4,8 @@ import 'package:task_manager/screens/splash_screen.dart';
 class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});
 
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +15,12 @@ class TaskManagerApp extends StatelessWidget {
           colorSchemeSeed: Colors.green,
           inputDecorationTheme: _inputDecorationTheme(),
           elevatedButtonTheme: _elevatedButtonThemeData(),
-          floatingActionButtonTheme: _buildFlotingActionTheme()),
+          floatingActionButtonTheme: _buildFloatingActionTheme()),
       home: const SplashScreen(),
     );
   }
 
-  FloatingActionButtonThemeData _buildFlotingActionTheme() {
+  FloatingActionButtonThemeData _buildFloatingActionTheme() {
     return FloatingActionButtonThemeData(
       backgroundColor: Colors.green,
       shape: RoundedRectangleBorder(

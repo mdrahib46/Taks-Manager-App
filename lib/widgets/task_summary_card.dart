@@ -18,7 +18,7 @@ class _TaskSummaryCardState extends State<TaskSummaryCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+      color: Colors.green.shade50,
       child: SizedBox(
         width: 100,
         child: Padding(

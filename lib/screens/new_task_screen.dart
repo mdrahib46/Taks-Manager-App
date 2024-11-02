@@ -74,32 +74,28 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     );
   }
 
-  List<TaskSummaryCard> _getTaskSummaryCardList(){
-    List<TaskSummaryCard> taskSummaryCardList =[];
-    for(TaskStatusModel t in _taskStatusCountList){
-      taskSummaryCardList.add(TaskSummaryCard(title: t.sId!, count: t.sum?? 0));
+  List<TaskSummaryCard> _getTaskSummaryCardList() {
+    List<TaskSummaryCard> taskSummaryCardList = [];
+    for (TaskStatusModel t in _taskStatusCountList) {
+      taskSummaryCardList
+          .add(TaskSummaryCard(title: t.sId!, count: t.sum ?? 0));
     }
     return taskSummaryCardList;
   }
 
   Widget _buildSummarySection() {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Visibility(
         visible: _taskStatusCountListInProgress == false,
         replacement: const CenterCircularProgressIndicator(),
-        child:  SingleChildScrollView(
+        child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: _getTaskSummaryCardList()
-          ),
+          child: Row(children: _getTaskSummaryCardList()),
         ),
       ),
     );
   }
-
-
-
 
   Future<void> _getTaskStatusCount() async {
     _taskStatusCountList.clear();
@@ -108,6 +104,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
 
     final NetworkResponse response =
         await NetworkCaller.getRequest(url: Urls.taskStatusCount);
+    _taskStatusCountListInProgress = false;
+    setState(() {});
     if (response.isSuccess) {
       final TaskStatusCountModel taskStatusCountModel =
           TaskStatusCountModel.fromJson(response.responseData);
