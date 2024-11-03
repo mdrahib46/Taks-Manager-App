@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task_manager/data/models/task_status_count_model.dart';
 import 'package:task_manager/data/models/user_model.dart';
 
 class AuthController {
   static const String _accessTokenKey = 'access-token';
   static const String _userDataKey = 'user-data';
+
   static String? accessToken;
   static UserModel? userData;
 
@@ -18,7 +18,8 @@ class AuthController {
 
   static Future<void> saveUserData(UserModel userModel) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.setString(_userDataKey, userModel.toString());
+    await sharedPreferences.setString(
+        _userDataKey, jsonEncode(userModel.toJson()));
     userData = userModel;
   }
 
@@ -36,7 +37,6 @@ class AuthController {
       return null;
     }
     UserModel userModel = UserModel.fromJson(jsonDecode(userEncodedData));
-
     userData = userModel;
     return userModel;
   }

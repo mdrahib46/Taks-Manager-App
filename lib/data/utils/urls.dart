@@ -14,5 +14,6 @@ class Urls{
   static String deleteTaskList(String taskId) => "$_baseUrl/deleteTask/$taskId";
   static String updateTaskStatus(String taskId, String taskStatus) => "$_baseUrl/updateTaskStatus/$taskId/$taskStatus";
   static String taskStatusCount = "$_baseUrl/taskStatusCount";
+  static String updateProfile = "$_baseUrl/ProfileUpdate";
 
 }
