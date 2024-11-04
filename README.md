@@ -18,7 +18,7 @@ This Android application allows users to manage theirtasks effectively. Users ca
 
 You can showcase the different screens of your app, such as the login screen, tasklist screen, task details screen, and profile screen. Briefly describe the key UI elements and their functionality in the captions.
 
-## Tech Stack
+## dependencies:
 
 * flutter_svg: Crucial for displaying vector graphics, which are scalable and look sharp on any screen density.
 * pin_code_fields: Provides a ready-made solution for PIN code input, commonly used for security features.
