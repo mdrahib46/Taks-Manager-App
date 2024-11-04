@@ -20,14 +20,12 @@ You can showcase the different screens of your app, such as the login screen, ta
 
 ## Tech Stack
 
-* **Kotlin:** Primary programming language.
-* **Jetpack Compose:** Modern UI toolkit for building native Android UI.
-* **Firebase Authentication:** For user authentication and password management.
-* **Firebase Firestore:** For storing task data and user profiles.
-* **Coroutines:** For asynchronous operations and background tasks.
-* **ViewModel:** For managing UI-related data and lifecycle.
-* **Navigation Component:** For navigating between different screens.
-* **Other relevant libraries:** (e.g., Room, Retrofit, Glide, etc.)
+* flutter_svg: Crucial for displaying vector graphics, which are scalable and look sharp on any screen density.
+* pin_code_fields: Provides a ready-made solution for PIN code input, commonly used for security features.
+* http: Fundamental for making network requests, enabling communication with backend services or APIs.
+* shared_preferences: Useful for storing small pieces of data locally, like user settings or login status.
+* image_picker: Enables users to interact with their device's camera and gallery, facilitating image uploads.
+* image: A core library for working with images in Dart, supporting decoding, encoding, and manipulation.
 
 ## Features
 
