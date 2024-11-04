@@ -38,7 +38,7 @@ You can showcase the different screens of your app, such as the login screen, ta
 
 ## Getting Started
 
-1. Clone the repository: `git clone [(https://github.com/mdrahib46/Taks-Manager-App.git)]`
+1. Clone the repository: `git clone [https://github.com/mdrahib46/Taks-Manager-App.git]`
 2. Open the project in Android Studio.
 3. Build and run the app on an emulator or physical device.
 
