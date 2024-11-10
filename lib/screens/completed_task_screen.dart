@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:task_manager/controller/completedTaskListController.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/data/models/task_list_model.dart';
 import 'package:task_manager/data/models/task_model.dart';
@@ -16,7 +19,8 @@ class CompletedTaskScreen extends StatefulWidget {
 
 class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   bool _inProgress = false;
-  List<TaskModel> _completedTaskList = [];
+  final CompletedTaskListController _completedTaskListController = Get.find<
+      CompletedTaskListController>();
 
   @override
   void initState() {
@@ -32,14 +36,15 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
         child: CircularProgressIndicator(),
       ),
       child: RefreshIndicator(
-        onRefresh: () async{
+        onRefresh: () async {
           _getCompleteTaskList();
         },
         child: ListView.separated(
-          itemCount: _completedTaskList.length,
+          itemCount: _completedTaskListController.completedTaskList.length,
           itemBuilder: (context, index) {
             return TaskCard(
-              taskModel: _completedTaskList[index], onRefreshList: _getCompleteTaskList,
+              taskModel: _completedTaskListController.completedTaskList[index],
+              onRefreshList: _getCompleteTaskList,
             );
           },
           separatorBuilder: (context, index) {
@@ -51,17 +56,10 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   }
 
   Future<void> _getCompleteTaskList() async {
-    _inProgress = true;
-    final NetworkResponse response =
-        await NetworkCaller.getRequest(url: Urls.completedTaskList);
-    if (response.isSuccess) {
-      final TaskListModel taskListModel =
-          TaskListModel.fromJson(response.responseData);
-      _completedTaskList = taskListModel.taskList ?? [];
-    } else {
-      showSnackBar(context, response.errorMessage, true);
+    final bool result = await _completedTaskListController
+        .getCompletedTaskList();
+    if (!result) {
+      showSnackBar(context, _completedTaskListController.errorMessage!, true);
     }
-    _inProgress = false;
-    setState(() {});
   }
 }
