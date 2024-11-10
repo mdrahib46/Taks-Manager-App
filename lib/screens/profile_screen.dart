@@ -248,13 +248,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img;
 import 'package:task_manager/data/Service/network_caller.dart';
-import 'package:task_manager/data/controller/authcontroller.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/data/models/user_model.dart';
 import 'package:task_manager/data/utils/urls.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
 import 'package:task_manager/widgets/snackBar_message.dart';
 import 'package:task_manager/widgets/tm_appbar.dart';
+
+import '../controller/authcontroller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

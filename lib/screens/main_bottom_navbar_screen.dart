@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/screens/add_new_task_screen.dart';
 import 'package:task_manager/screens/canceled_task_screen.dart';
 import 'package:task_manager/screens/completed_task_screen.dart';
 import 'package:task_manager/screens/inprogress_task_screen.dart';
@@ -8,6 +7,7 @@ import 'package:task_manager/screens/new_task_screen.dart';
 import '../widgets/tm_appbar.dart';
 
 class MainBottomNavbarScreen extends StatefulWidget {
+  static const String name = '/home';
   const MainBottomNavbarScreen({super.key});
 
   @override

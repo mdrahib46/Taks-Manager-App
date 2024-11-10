@@ -4,7 +4,8 @@ import 'package:http/http.dart';
 import 'package:task_manager/app.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
-import '../controller/authcontroller.dart';
+
+import '../../controller/authcontroller.dart';
 
 class NetworkCaller {
   static Future<NetworkResponse> getRequest({required String url}) async {

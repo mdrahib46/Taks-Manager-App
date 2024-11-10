@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:task_manager/data/controller/authcontroller.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/utils/assets_path.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 
+import '../controller/authcontroller.dart';
 import '../widgets/screen_background.dart';
 
 class SplashScreen extends StatefulWidget {
+
+  static const String name = '/';
   const SplashScreen({super.key});
 
   @override

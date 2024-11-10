@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task_manager/data/controller/authcontroller.dart';
+
 import 'package:task_manager/screens/profile_screen.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
+
+import '../controller/authcontroller.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TMAppBar({super.key, this.isProfileScreenOpen = false});
