@@ -3,31 +3,29 @@ import 'package:task_manager/data/Service/network_caller.dart';
 import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/data/models/task_list_model.dart';
 import 'package:task_manager/data/models/task_model.dart';
-import '../data/utils/urls.dart';
+import 'package:task_manager/data/utils/urls.dart';
 
 
-class NewTaskListController extends GetxController{
+class CompletedTaskListController extends GetxController{
   bool _inProgress = false;
-
   String? _errorMessage;
-  List<TaskModel> _taskList = [];
+  List<TaskModel> _completedTaskList = [];
 
   bool get inProgress => _inProgress;
-  String? get errorMessage =>  _errorMessage;
-  List<TaskModel> get taskList =>_taskList;
+  String? get errorMessage => _errorMessage;
+  List<TaskModel> get completedTaskList => _completedTaskList;
 
-  Future<bool> getNewTaskList() async{
+  Future<bool> getCompletedTaskList() async{
     bool isSuccess = false;
     _inProgress = true;
     update();
 
-    final NetworkResponse response = await NetworkCaller.getRequest(url: Urls.taskList);
+    final NetworkResponse response = await NetworkCaller.getRequest(url: Urls.completedTaskList);
     if(response.isSuccess){
-      final TaskListModel taskListModel = TaskListModel.fromJson(response.responseData);
-      _taskList = taskListModel.taskList ?? [];
+      final TaskListModel completedTaskListModel = TaskListModel.fromJson(response.responseData);
+      _completedTaskList = completedTaskListModel.taskList ?? [];
       isSuccess = true;
-    }
-    else{
+    }else{
       _errorMessage = response.errorMessage;
     }
     _inProgress = false;
@@ -35,4 +33,9 @@ class NewTaskListController extends GetxController{
 
     return isSuccess;
   }
+
+
+
+
+
 }
