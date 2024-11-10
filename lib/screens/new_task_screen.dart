@@ -13,7 +13,7 @@ import '../widgets/task_summary_card.dart';
 import 'add_new_task_screen.dart';
 
 class NewTaskScreen extends StatefulWidget {
-  static const String name = 'NewTaskScreen';
+  static const String name = '/NewTaskScreen';
 
   const NewTaskScreen({super.key});
 
@@ -51,11 +51,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     visible: !newTaskListController.inProgress,
                     replacement: const CenterCircularProgressIndicator(),
                     child: ListView.separated(
-                      itemCount: _newTaskListController.taskList.length,
+                      itemCount: newTaskListController.taskList.length,
                       itemBuilder: (context, index) {
                         return TaskCard(
                           onRefreshList: _getNewTaskList,
-                          taskModel: _newTaskListController.taskList[index],
+                          taskModel: newTaskListController.taskList[index],
                         );
                       },
                       separatorBuilder: (context, index) {
