@@ -15,8 +15,8 @@ class CompletedTaskScreen extends StatefulWidget {
 }
 
 class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
-  final CompletedTaskListController _completedTaskListController = Get.find<
-      CompletedTaskListController>();
+  final CompletedTaskListController _completedTaskListController =
+      Get.find<CompletedTaskListController>();
 
   @override
   void initState() {
@@ -28,39 +28,41 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<CompletedTaskListController>(
         builder: (completedTaskListController) {
-          return Visibility(
-            visible: !completedTaskListController.inProgress,
-            replacement: const Center(
-              child: CircularProgressIndicator(),
-            ),
-            child: RefreshIndicator(
-              onRefresh: () async {
-                _getCompleteTaskList();
-              },
-              child: ListView.separated(
-                itemCount: completedTaskListController.completedTaskList.length,
-                itemBuilder: (context, index) {
-                  return TaskCard(
-                    taskModel: completedTaskListController
-                        .completedTaskList[index],
-                    onRefreshList: _getCompleteTaskList,
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const SizedBox(height: 8);
-                },
-              ),
-            ),
-          );
-        }
-    );
+      return Visibility(
+        visible: !completedTaskListController.inProgress,
+        replacement: const Center(
+          child: CircularProgressIndicator(),
+        ),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            _getCompleteTaskList();
+          },
+          child: ListView.separated(
+            itemCount: completedTaskListController.completedTaskList.length,
+            itemBuilder: (context, index) {
+              return TaskCard(
+                taskModel: completedTaskListController.completedTaskList[index],
+                onRefreshList: _getCompleteTaskList,
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: 8);
+            },
+          ),
+        ),
+      );
+    });
   }
 
   Future<void> _getCompleteTaskList() async {
-    final bool result = await _completedTaskListController
-        .getCompletedTaskList();
+    final bool result =
+        await _completedTaskListController.getCompletedTaskList();
     if (!result) {
-      showSnackBar(context, _completedTaskListController.errorMessage!, true,);
+      showSnackBar(
+        context,
+        _completedTaskListController.errorMessage!,
+        true,
+      );
     }
   }
 }

@@ -7,18 +7,18 @@ import '../data/utils/urls.dart';
 
 
 class NewTaskListController extends GetxController{
-  bool _inprogress = false;
+  bool _inProgress = false;
 
   String? _errorMessage;
   List<TaskModel> _taskList = [];
 
-  bool get inProgress => _inprogress;
+  bool get inProgress => _inProgress;
   String? get errorMessage =>  _errorMessage;
   List<TaskModel> get taskList =>_taskList;
 
   Future<bool> getNewTaskList() async{
     bool isSuccess = false;
-    _inprogress = true;
+    _inProgress = true;
     update();
 
     final NetworkResponse response = await NetworkCaller.getRequest(url: Urls.taskList);
@@ -30,7 +30,7 @@ class NewTaskListController extends GetxController{
     else{
       _errorMessage = response.errorMessage;
     }
-    _inprogress = false;
+    _inProgress = false;
     update();
 
     return isSuccess;

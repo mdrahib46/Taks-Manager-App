@@ -24,7 +24,8 @@ class NewTaskScreen extends StatefulWidget {
 class _NewTaskScreenState extends State<NewTaskScreen> {
   bool _taskStatusCountListInProgress = false;
   List<TaskStatusModel> _taskStatusCountList = [];
-  final NewTaskListController _newTaskListController = Get.find<NewTaskListController>();
+  final NewTaskListController _newTaskListController =
+      Get.find<NewTaskListController>();
 
   @override
   void initState() {
@@ -46,25 +47,24 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             _buildSummarySection(),
             Expanded(
               child: GetBuilder<NewTaskListController>(
-                builder: (newTaskListController) {
-                  return Visibility(
-                    visible: !newTaskListController.inProgress,
-                    replacement: const CenterCircularProgressIndicator(),
-                    child: ListView.separated(
-                      itemCount: newTaskListController.taskList.length,
-                      itemBuilder: (context, index) {
-                        return TaskCard(
-                          onRefreshList: _getNewTaskList,
-                          taskModel: newTaskListController.taskList[index],
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(height: 8);
-                      },
-                    ),
-                  );
-                }
-              ),
+                  builder: (newTaskListController) {
+                return Visibility(
+                  visible: !newTaskListController.inProgress,
+                  replacement: const CenterCircularProgressIndicator(),
+                  child: ListView.separated(
+                    itemCount: newTaskListController.taskList.length,
+                    itemBuilder: (context, index) {
+                      return TaskCard(
+                        onRefreshList: _getNewTaskList,
+                        taskModel: newTaskListController.taskList[index],
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(height: 8);
+                    },
+                  ),
+                );
+              }),
             )
           ],
         ),
@@ -125,7 +125,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   Future<void> _getNewTaskList() async {
     final bool result = await _newTaskListController.getNewTaskList();
     if (result == false) {
-      showSnackBar(context, _newTaskListController.errorMessage!, true);
+      showSnackBar(
+        context,
+        _newTaskListController.errorMessage!,
+        true,
+      );
     }
   }
 

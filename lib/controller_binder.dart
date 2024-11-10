@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:task_manager/controller/inprogress_taskList_controller.dart';
 import 'package:task_manager/controller/new_taskList_controller.dart';
 import 'package:task_manager/controller/signIn_controller.dart';
 import 'controller/canceledTaskListController.dart';
@@ -11,6 +12,7 @@ class ControllerBinder extends Bindings{
     Get.put(NewTaskListController());
     Get.put(CompletedTaskListController());
     Get.put(CanceledTaskListController());
+    Get.put(InProgressTaskListController());
   }
 
 }
