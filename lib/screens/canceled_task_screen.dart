@@ -5,7 +5,7 @@ import 'package:task_manager/widgets/snackBar_message.dart';
 import '../widgets/task_card.dart';
 
 class CanceledTaskScreen extends StatefulWidget {
-  static const String name = "/CanceledTask";
+  static const String name = "/CanceledTaskScreen";
 
   const CanceledTaskScreen({super.key});
 

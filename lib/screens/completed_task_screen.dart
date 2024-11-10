@@ -6,7 +6,7 @@ import 'package:task_manager/widgets/snackBar_message.dart';
 import '../widgets/task_card.dart';
 
 class CompletedTaskScreen extends StatefulWidget {
-  static const String name = "/CompletedScreen";
+  static const String name = "/CompletedTaskScreen";
 
   const CompletedTaskScreen({super.key});
 

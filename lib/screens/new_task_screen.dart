@@ -47,24 +47,25 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             _buildSummarySection(),
             Expanded(
               child: GetBuilder<NewTaskListController>(
-                  builder: (newTaskListController) {
-                return Visibility(
-                  visible: !newTaskListController.inProgress,
-                  replacement: const CenterCircularProgressIndicator(),
-                  child: ListView.separated(
-                    itemCount: newTaskListController.taskList.length,
-                    itemBuilder: (context, index) {
-                      return TaskCard(
-                        onRefreshList: _getNewTaskList,
-                        taskModel: newTaskListController.taskList[index],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 8);
-                    },
-                  ),
-                );
-              }),
+                builder: (newTaskListController) {
+                  return Visibility(
+                    visible: !newTaskListController.inProgress,
+                    replacement: const CenterCircularProgressIndicator(),
+                    child: ListView.separated(
+                      itemCount: newTaskListController.taskList.length,
+                      itemBuilder: (context, index) {
+                        return TaskCard(
+                          onRefreshList: _getNewTaskList,
+                          taskModel: newTaskListController.taskList[index],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 8);
+                      },
+                    ),
+                  );
+                },
+              ),
             )
           ],
         ),
@@ -82,8 +83,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   List<TaskSummaryCard> _getTaskSummaryCardList() {
     List<TaskSummaryCard> taskSummaryCardList = [];
     for (TaskStatusModel t in _taskStatusCountList) {
-      taskSummaryCardList
-          .add(TaskSummaryCard(title: t.sId!, count: t.sum ?? 0));
+      taskSummaryCardList.add(
+        TaskSummaryCard(title: t.sId!, count: t.sum ?? 0),
+      );
     }
     return taskSummaryCardList;
   }

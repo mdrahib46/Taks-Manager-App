@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/controller_binder.dart';
 import 'package:task_manager/screens/canceled_task_screen.dart';
+import 'package:task_manager/screens/inprogress_task_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/new_task_screen.dart';
 import 'package:task_manager/screens/splash_screen.dart';
@@ -30,7 +31,8 @@ class TaskManagerApp extends StatelessWidget {
         MainBottomNavbarScreen.name: (context) =>
             const MainBottomNavbarScreen(),
         NewTaskScreen.name: (context) => const NewTaskScreen(),
-        CanceledTaskScreen.name: (context) => const CanceledTaskScreen()
+        CanceledTaskScreen.name: (context) => const CanceledTaskScreen(),
+        InProgressTaskScreen.name: (context) => const  InProgressTaskScreen(),
       },
     );
   }
