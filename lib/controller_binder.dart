@@ -4,6 +4,7 @@ import 'package:task_manager/controller/new_taskList_controller.dart';
 import 'package:task_manager/controller/signIn_controller.dart';
 import 'controller/canceledTaskListController.dart';
 import 'controller/completedTaskListController.dart';
+import 'controller/signUp_controller.dart';
 
 class ControllerBinder extends Bindings{
   @override
@@ -13,6 +14,7 @@ class ControllerBinder extends Bindings{
     Get.put(CompletedTaskListController());
     Get.put(CanceledTaskListController());
     Get.put(InProgressTaskListController());
+    Get.put(SignupController());
   }
 
 }

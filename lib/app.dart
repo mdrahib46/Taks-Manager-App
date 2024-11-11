@@ -4,6 +4,7 @@ import 'package:task_manager/screens/canceled_task_screen.dart';
 import 'package:task_manager/screens/inprogress_task_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/new_task_screen.dart';
+import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/screens/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +34,7 @@ class TaskManagerApp extends StatelessWidget {
         NewTaskScreen.name: (context) => const NewTaskScreen(),
         CanceledTaskScreen.name: (context) => const CanceledTaskScreen(),
         InProgressTaskScreen.name: (context) => const  InProgressTaskScreen(),
+        SignInScreen.name: (context) => const  SignInScreen(),
       },
     );
   }
