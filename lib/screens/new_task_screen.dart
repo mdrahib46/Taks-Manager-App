@@ -94,7 +94,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Visibility(
-        visible: _taskStatusCountListInProgress == false,
+        visible: !_taskStatusCountListInProgress,
         replacement: const CenterCircularProgressIndicator(),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -111,13 +111,12 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
 
     final NetworkResponse response =
         await NetworkCaller.getRequest(url: Urls.taskStatusCount);
-    _taskStatusCountListInProgress = false;
-    setState(() {});
     if (response.isSuccess) {
       final TaskStatusCountModel taskStatusCountModel =
           TaskStatusCountModel.fromJson(response.responseData);
-      _taskStatusCountListInProgress = false;
       _taskStatusCountList = taskStatusCountModel.taskStatusCountList ?? [];
+      _taskStatusCountListInProgress = false;
+      setState(() {});
     } else {
       showSnackBar(context, response.errorMessage, true);
       setState(() {});

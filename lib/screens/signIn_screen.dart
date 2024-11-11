@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:task_manager/controller/signIn_controller.dart';
 import 'package:task_manager/screens/forgot_pass_email_verify_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';

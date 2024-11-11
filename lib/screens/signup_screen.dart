@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:task_manager/controller/signUp_controller.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
@@ -197,13 +196,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  void _clearTextFields() {
-    _emailTEController.clear();
-    _firstNameTEController.clear();
-    _lastNameTEController.clear();
-    _mobileTEController.clear();
-    _passTEController.clear();
-  }
 
   @override
   void dispose() {

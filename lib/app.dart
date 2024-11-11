@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/controller_binder.dart';
+import 'package:task_manager/screens/add_new_task_screen.dart';
 import 'package:task_manager/screens/canceled_task_screen.dart';
 import 'package:task_manager/screens/inprogress_task_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
@@ -33,8 +34,9 @@ class TaskManagerApp extends StatelessWidget {
             const MainBottomNavbarScreen(),
         NewTaskScreen.name: (context) => const NewTaskScreen(),
         CanceledTaskScreen.name: (context) => const CanceledTaskScreen(),
-        InProgressTaskScreen.name: (context) => const  InProgressTaskScreen(),
-        SignInScreen.name: (context) => const  SignInScreen(),
+        InProgressTaskScreen.name: (context) => const InProgressTaskScreen(),
+        SignInScreen.name: (context) => const SignInScreen(),
+        AddNewTaskScreen.name : (context) => const AddNewTaskScreen(),
       },
     );
   }
@@ -75,7 +77,8 @@ class TaskManagerApp extends StatelessWidget {
 
   OutlineInputBorder _inputBorder() {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Colors.white));
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: Colors.white),
+    );
   }
 }
