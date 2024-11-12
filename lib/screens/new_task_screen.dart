@@ -25,7 +25,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   bool _taskStatusCountListInProgress = false;
   List<TaskStatusModel> _taskStatusCountList = [];
   final NewTaskListController _newTaskListController =
-      Get.find<NewTaskListController>();
+  Get.find<NewTaskListController>();
 
   @override
   void initState() {
@@ -110,10 +110,10 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     setState(() {});
 
     final NetworkResponse response =
-        await NetworkCaller.getRequest(url: Urls.taskStatusCount);
+    await NetworkCaller.getRequest(url: Urls.taskStatusCount);
     if (response.isSuccess) {
       final TaskStatusCountModel taskStatusCountModel =
-          TaskStatusCountModel.fromJson(response.responseData);
+      TaskStatusCountModel.fromJson(response.responseData);
       _taskStatusCountList = taskStatusCountModel.taskStatusCountList ?? [];
       _taskStatusCountListInProgress = false;
       setState(() {});

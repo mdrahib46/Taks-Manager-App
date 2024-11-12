@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/controller_binder.dart';
 import 'package:task_manager/screens/add_new_task_screen.dart';
 import 'package:task_manager/screens/canceled_task_screen.dart';
+import 'package:task_manager/screens/forgot_pass_email_verify_screen.dart';
+import 'package:task_manager/screens/forgot_pass_otp_screen.dart';
 import 'package:task_manager/screens/inprogress_task_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/new_task_screen.dart';
@@ -28,18 +30,23 @@ class TaskManagerApp extends StatelessWidget {
       ),
       initialRoute: '/',
       initialBinding: ControllerBinder(),
+
       routes: {
         SplashScreen.name: (context) => const SplashScreen(),
         MainBottomNavbarScreen.name: (context) =>
-            const MainBottomNavbarScreen(),
+        const MainBottomNavbarScreen(),
         NewTaskScreen.name: (context) => const NewTaskScreen(),
         CanceledTaskScreen.name: (context) => const CanceledTaskScreen(),
         InProgressTaskScreen.name: (context) => const InProgressTaskScreen(),
         SignInScreen.name: (context) => const SignInScreen(),
         AddNewTaskScreen.name : (context) => const AddNewTaskScreen(),
+        ForgotPasswdEmailScreen.name : (context) => const ForgotPasswdEmailScreen(),
+        ForgotPasswdOTPScreen.name: (context) => ForgotPasswdOTPScreen(email: Get.arguments)
       },
     );
   }
+
+
 
   FloatingActionButtonThemeData _buildFloatingActionTheme() {
     return FloatingActionButtonThemeData(
