@@ -1,11 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager/data/Service/network_caller.dart';
-import 'package:task_manager/data/models/network_response.dart';
+import 'package:get/get.dart';
+import 'package:task_manager/controller/resetPass_controller.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
 import 'package:task_manager/widgets/snackBar_message.dart';
-import '../data/utils/urls.dart';
 import '../widgets/screen_background.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -21,11 +20,12 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  bool _inProgress = false;
   final TextEditingController _passTEController = TextEditingController();
   final TextEditingController _confirmPassTeController =
       TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ResetPasswordController _resetPasswordController =
+      Get.find<ResetPasswordController>();
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           ),
           const SizedBox(height: 24),
           Visibility(
-            visible: _inProgress == false,
+            visible: !_resetPasswordController.inProgress,
             replacement: const Center(
               child: const CenterCircularProgressIndicator(),
             ),
@@ -135,27 +135,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   Future<void> _resetPassword() async {
-    _inProgress = true;
-    Map<String, dynamic> requestBody = {
-      "email": widget.email,
-      "OTP": widget.otp,
-      "password": _confirmPassTeController.text
-    };
-    final NetworkResponse response = await NetworkCaller.postRequest(
-        url: Urls.resetPassword, body: requestBody);
-    _inProgress = false;
-    if (response.isSuccess) {
+    final bool result =
+        await _resetPasswordController.getPasswordResetController(
+            widget.email, widget.otp, _confirmPassTeController.text);
+
+    if (result) {
       showSnackBar(context, 'Password reset successfully');
       setState(() {});
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const SignInScreen()),
-          (route) => false);
+      Get.toNamed(ResetPasswordScreen.name,
+          arguments: {widget.email, widget.otp, _confirmPassTeController.text});
     } else {
-      if (mounted) {
-        showSnackBar(context, 'Password reset has been failed', true);
-        setState(() {});
-      }
+      showSnackBar(context, _resetPasswordController.errorMessage!, true);
     }
   }
 
@@ -164,9 +154,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   void _onTapSignUp() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const SignInScreen()),
-        (route) => false);
+    Get.toNamed(SignInScreen.name);
   }
 }

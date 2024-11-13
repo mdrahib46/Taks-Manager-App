@@ -26,6 +26,7 @@ class ForgotPassOTPVerityController extends GetxController {
         email,
         otp,
       });
+      isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;
     }

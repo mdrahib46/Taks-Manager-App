@@ -4,6 +4,7 @@ import 'package:task_manager/controller/forgotPassEmailVerify_controller.dart';
 import 'package:task_manager/controller/forgotPassOTP_controller.dart';
 import 'package:task_manager/controller/inprogress_taskList_controller.dart';
 import 'package:task_manager/controller/new_taskList_controller.dart';
+import 'package:task_manager/controller/resetPass_controller.dart';
 import 'package:task_manager/controller/signIn_controller.dart';
 import 'controller/canceledTaskListController.dart';
 import 'controller/completedTaskListController.dart';
@@ -21,5 +22,6 @@ class ControllerBinder extends Bindings {
     Get.put(AddNewTaskController());
     Get.put(ForgotPassEmailVerifyController());
     Get.put(ForgotPassOTPVerityController());
+    Get.put(ResetPasswordController());
   }
 }

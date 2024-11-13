@@ -7,6 +7,7 @@ import 'package:task_manager/screens/forgot_pass_otp_screen.dart';
 import 'package:task_manager/screens/inprogress_task_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/new_task_screen.dart';
+import 'package:task_manager/screens/reset_password_screen.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/screens/splash_screen.dart';
 import 'package:get/get.dart';
@@ -41,7 +42,9 @@ class TaskManagerApp extends StatelessWidget {
         SignInScreen.name: (context) => const SignInScreen(),
         AddNewTaskScreen.name : (context) => const AddNewTaskScreen(),
         ForgotPasswdEmailScreen.name : (context) => const ForgotPasswdEmailScreen(),
-        ForgotPasswdOTPScreen.name: (context) => ForgotPasswdOTPScreen(email: Get.arguments)
+        ForgotPasswdOTPScreen.name: (context) => ForgotPasswdOTPScreen(email: Get.arguments),
+        ResetPasswordScreen.name : (context)=> ResetPasswordScreen(email: Get.arguments['email'],
+            otp: Get.arguments['otp'])
       },
     );
   }

@@ -2,13 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager/controller/forgotPassEmailVerify_controller.dart';
-import 'package:task_manager/data/utils/urls.dart';
 import 'package:task_manager/screens/forgot_pass_otp_screen.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
 import 'package:task_manager/widgets/snackBar_message.dart';
-import '../data/Service/network_caller.dart';
-import '../data/models/network_response.dart';
 import '../widgets/screen_background.dart';
 
 class ForgotPasswdEmailScreen extends StatefulWidget {
@@ -27,10 +24,11 @@ class _ForgotPasswdEmailScreenState extends State<ForgotPasswdEmailScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailVerifyTEController =
       TextEditingController();
+
   final ForgotPassEmailVerifyController _forgotPassEmailVerifyController =
       Get.find<ForgotPassEmailVerifyController>();
 
-  bool _inProgress = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,15 +91,19 @@ class _ForgotPasswdEmailScreenState extends State<ForgotPasswdEmailScreen> {
             },
           ),
           const SizedBox(height: 24),
-          Visibility(
-            visible: _inProgress == false,
-            replacement: const Center(
-              child: CenterCircularProgressIndicator(),
-            ),
-            child: ElevatedButton(
-              onPressed: _onTapNextButton,
-              child: const Icon(Icons.arrow_circle_right_outlined),
-            ),
+          GetBuilder<ForgotPassEmailVerifyController>(
+            builder: (forgotPassOtpController) {
+              return Visibility(
+                visible: !forgotPassOtpController.inProgress,
+                replacement: const Center(
+                  child: CenterCircularProgressIndicator(),
+                ),
+                child: ElevatedButton(
+                  onPressed: _onTapNextButton,
+                  child: const Icon(Icons.arrow_circle_right_outlined),
+                ),
+              );
+            }
           ),
         ],
       ),
@@ -130,7 +132,7 @@ class _ForgotPasswdEmailScreenState extends State<ForgotPasswdEmailScreen> {
   Future<void> _sendOTPToEmail() async {
     final bool result = await _forgotPassEmailVerifyController
         .getForgotPassEmailVerifyController(
-            _emailVerifyTEController.text.trim());
+            _emailVerifyTEController.text);
     if (result) {
       Get.toNamed(ForgotPasswdOTPScreen.name,
           arguments: _emailVerifyTEController.text);
