@@ -97,6 +97,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               if (value != _passTEController.text) {
                 return "Password does not match. Try again";
               }
+              return null;
             },
           ),
           const SizedBox(height: 24),

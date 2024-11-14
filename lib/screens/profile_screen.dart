@@ -265,13 +265,13 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  TextEditingController _emailTEController = TextEditingController();
-  TextEditingController _firstNameTEController = TextEditingController();
-  TextEditingController _lastNameTEController = TextEditingController();
-  TextEditingController _mobileTEController = TextEditingController();
-  TextEditingController _passwordTEcontroller = TextEditingController();
+  final TextEditingController _emailTEController = TextEditingController();
+  final TextEditingController _firstNameTEController = TextEditingController();
+  final TextEditingController _lastNameTEController = TextEditingController();
+  final TextEditingController _mobileTEController = TextEditingController();
+  final TextEditingController _passwordTEController = TextEditingController();
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _profileInProgress = false;
   XFile? _selectedImage;
 
@@ -447,8 +447,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "mobile": _mobileTEController.text.trim(),
     };
 
-    if (_passwordTEcontroller.text.isNotEmpty) {
-      requestBody['password'] = _passwordTEcontroller.text;
+    if (_passwordTEController.text.isNotEmpty) {
+      requestBody['password'] = _passwordTEController.text;
     }
 
     if (_selectedImage != null) {
