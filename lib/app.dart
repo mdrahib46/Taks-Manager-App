@@ -17,7 +17,6 @@ class TaskManagerApp extends StatelessWidget {
 
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -31,25 +30,26 @@ class TaskManagerApp extends StatelessWidget {
       ),
       initialRoute: '/',
       initialBinding: ControllerBinder(),
-
       routes: {
         SplashScreen.name: (context) => const SplashScreen(),
         MainBottomNavbarScreen.name: (context) =>
-        const MainBottomNavbarScreen(),
+            const MainBottomNavbarScreen(),
         NewTaskScreen.name: (context) => const NewTaskScreen(),
         CanceledTaskScreen.name: (context) => const CanceledTaskScreen(),
         InProgressTaskScreen.name: (context) => const InProgressTaskScreen(),
         SignInScreen.name: (context) => const SignInScreen(),
-        AddNewTaskScreen.name : (context) => const AddNewTaskScreen(),
-        ForgotPasswdEmailScreen.name : (context) => const ForgotPasswdEmailScreen(),
-        ForgotPasswdOTPScreen.name: (context) => ForgotPasswdOTPScreen(email: Get.arguments),
-        ResetPasswordScreen.name : (context)=> ResetPasswordScreen(email: Get.arguments['email'],
-            otp: Get.arguments['otp'])
+        AddNewTaskScreen.name: (context) => const AddNewTaskScreen(),
+        ForgotPasswdEmailScreen.name: (context) =>
+            const ForgotPasswdEmailScreen(),
+        ForgotPasswdOTPScreen.name: (context) =>
+            ForgotPasswdOTPScreen(email: Get.arguments),
+        ResetPasswordScreen.name: (context) => ResetPasswordScreen(
+              email: Get.arguments['email'],
+              otp: Get.arguments['otp'],
+            )
       },
     );
   }
-
-
 
   FloatingActionButtonThemeData _buildFloatingActionTheme() {
     return FloatingActionButtonThemeData(

@@ -12,6 +12,7 @@ class ResetPasswordScreen extends StatefulWidget {
 
   const ResetPasswordScreen(
       {super.key, required this.email, required this.otp});
+
   final String email;
   final String otp;
 
@@ -22,14 +23,16 @@ class ResetPasswordScreen extends StatefulWidget {
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final TextEditingController _passTEController = TextEditingController();
   final TextEditingController _confirmPassTeController =
-      TextEditingController();
+  TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ResetPasswordController _resetPasswordController =
-      Get.find<ResetPasswordController>();
+  Get.find<ResetPasswordController>();
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
+    TextTheme textTheme = Theme
+        .of(context)
+        .textTheme;
 
     return Scaffold(
       body: ScreenBackground(
@@ -129,7 +132,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           TextSpan(
               text: 'Sign in',
               style: const TextStyle(color: Colors.green),
-              recognizer: TapGestureRecognizer()..onTap = _onTapSignUp),
+              recognizer: TapGestureRecognizer()
+                ..onTap = _onTapSignUp),
         ],
       ),
     );
@@ -137,14 +141,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   Future<void> _resetPassword() async {
     final bool result =
-        await _resetPasswordController.getPasswordResetController(
-            widget.email, widget.otp, _confirmPassTeController.text);
+    await _resetPasswordController.getPasswordResetController(
+        widget.email, widget.otp, _confirmPassTeController.text);
 
     if (result) {
       showSnackBar(context, 'Password reset successfully');
       setState(() {});
-      Get.toNamed(ResetPasswordScreen.name,
-          arguments: {widget.email, widget.otp, _confirmPassTeController.text});
+      Get.toNamed(SignInScreen.name);
+      print("OTP :${widget.otp}");
     } else {
       showSnackBar(context, _resetPasswordController.errorMessage!, true);
     }

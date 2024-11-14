@@ -23,8 +23,8 @@ class ForgotPassOTPVerityController extends GetxController {
     );
     if (response.isSuccess) {
       Get.toNamed(ResetPasswordScreen.name, arguments: {
-        email,
-        otp,
+        'email':email,
+        'otp': otp,
       });
       isSuccess = true;
     } else {
