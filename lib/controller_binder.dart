@@ -11,6 +11,7 @@ import 'controller/canceledTaskListController.dart';
 import 'controller/completedTaskListController.dart';
 import 'controller/signUp_controller.dart';
 import 'controller/taskStatus_controller.dart';
+import 'controller/task_status_count_controller.dart';
 
 class ControllerBinder extends Bindings {
   @override
@@ -27,5 +28,6 @@ class ControllerBinder extends Bindings {
     Get.put(ResetPasswordController());
     Get.put(DeleteTaskController());
     Get.put(UpdateTaskStatusController());
+    Get.put(TaskStatusCountController());
   }
 }

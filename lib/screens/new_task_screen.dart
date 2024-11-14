@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_manager/controller/new_taskList_controller.dart';
-import 'package:task_manager/data/Service/network_caller.dart';
-import 'package:task_manager/data/models/network_response.dart';
-import 'package:task_manager/data/models/task_status_count_model.dart';
-import 'package:task_manager/data/models/task_status_model.dart';
+import 'package:task_manager/controller/task_status_count_controller.dart';
 import 'package:task_manager/widgets/circularProgressIndicator.dart';
 import 'package:task_manager/widgets/snackBar_message.dart';
-import '../data/utils/urls.dart';
 import '../widgets/task_card.dart';
-import '../widgets/task_summary_card.dart';
 import 'add_new_task_screen.dart';
 
 class NewTaskScreen extends StatefulWidget {
@@ -22,10 +17,10 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
-  bool _taskStatusCountListInProgress = false;
-  List<TaskStatusModel> _taskStatusCountList = [];
   final NewTaskListController _newTaskListController =
-  Get.find<NewTaskListController>();
+      Get.find<NewTaskListController>();
+  final TaskStatusCountController _taskStatusCountController =
+      Get.find<TaskStatusCountController>();
 
   @override
   void initState() {
@@ -80,46 +75,29 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     );
   }
 
-  List<TaskSummaryCard> _getTaskSummaryCardList() {
-    List<TaskSummaryCard> taskSummaryCardList = [];
-    for (TaskStatusModel t in _taskStatusCountList) {
-      taskSummaryCardList.add(
-        TaskSummaryCard(title: t.sId!, count: t.sum ?? 0),
-      );
-    }
-    return taskSummaryCardList;
-  }
-
   Widget _buildSummarySection() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Visibility(
-        visible: !_taskStatusCountListInProgress,
-        replacement: const CenterCircularProgressIndicator(),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(children: _getTaskSummaryCardList()),
-        ),
-      ),
+      child:
+          GetBuilder<TaskStatusCountController>(builder: (tasCountController) {
+        return Visibility(
+          visible: !tasCountController.inProgress,
+          replacement: const CenterCircularProgressIndicator(),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: _taskStatusCountController.getTaskSummaryCardList),
+          ),
+        );
+      }),
     );
   }
 
   Future<void> _getTaskStatusCount() async {
-    _taskStatusCountList.clear();
-    _taskStatusCountListInProgress = true;
-    setState(() {});
-
-    final NetworkResponse response =
-    await NetworkCaller.getRequest(url: Urls.taskStatusCount);
-    if (response.isSuccess) {
-      final TaskStatusCountModel taskStatusCountModel =
-      TaskStatusCountModel.fromJson(response.responseData);
-      _taskStatusCountList = taskStatusCountModel.taskStatusCountList ?? [];
-      _taskStatusCountListInProgress = false;
-      setState(() {});
-    } else {
-      showSnackBar(context, response.errorMessage, true);
-      setState(() {});
+    final bool result =
+        await _taskStatusCountController.taskStatusCountController();
+    if (!result) {
+      showSnackBar(context, _newTaskListController.errorMessage!, true);
     }
   }
 
@@ -131,7 +109,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         _newTaskListController.errorMessage!,
         true,
       );
-    }
+    } else {}
   }
 
   void _onTapFAB() async {

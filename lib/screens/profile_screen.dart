@@ -314,10 +314,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 _buildPhotoPicker(),
                 const SizedBox(height: 16),
                 TextFormField(
+                  style: const TextStyle(color: Colors.green),
                   enabled: false,
                   controller: _emailTEController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(hintText: 'Email'),
+                  decoration: InputDecoration(
+                      hintText: 'Email',
+                      disabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.green),
+                          borderRadius: BorderRadius.circular(8))),
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
