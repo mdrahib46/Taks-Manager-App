@@ -7,6 +7,7 @@ import 'package:task_manager/controller/inprogress_taskList_controller.dart';
 import 'package:task_manager/controller/new_taskList_controller.dart';
 import 'package:task_manager/controller/resetPass_controller.dart';
 import 'package:task_manager/controller/signIn_controller.dart';
+import 'package:task_manager/controller/update_profile_controller.dart';
 import 'controller/canceledTaskListController.dart';
 import 'controller/completedTaskListController.dart';
 import 'controller/signUp_controller.dart';
@@ -29,5 +30,6 @@ class ControllerBinder extends Bindings {
     Get.put(DeleteTaskController());
     Get.put(UpdateTaskStatusController());
     Get.put(TaskStatusCountController());
+    Get.put(ProfileController());
   }
 }

@@ -10,6 +10,8 @@ import '../controller/authcontroller.dart';
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TMAppBar({super.key, this.isProfileScreenOpen = false});
 
+  static const String name = '/TaskManagerAppBar';
+
   final bool isProfileScreenOpen;
 
   @override

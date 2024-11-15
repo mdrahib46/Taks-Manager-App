@@ -7,10 +7,12 @@ import 'package:task_manager/screens/forgot_pass_otp_screen.dart';
 import 'package:task_manager/screens/inprogress_task_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/new_task_screen.dart';
+import 'package:task_manager/screens/profile_screen.dart';
 import 'package:task_manager/screens/reset_password_screen.dart';
 import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/screens/splash_screen.dart';
 import 'package:get/get.dart';
+import 'package:task_manager/widgets/tm_appbar.dart';
 
 class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});
@@ -46,7 +48,8 @@ class TaskManagerApp extends StatelessWidget {
         ResetPasswordScreen.name: (context) => ResetPasswordScreen(
               email: Get.arguments['email'],
               otp: Get.arguments['otp'],
-            )
+            ),
+        ProfileScreen.name : (context)=> const ProfileScreen()
       },
     );
   }
