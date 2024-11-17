@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:task_manager/controller_binder.dart';
+import 'package:task_manager/screens/add_new_task_screen.dart';
 import 'package:task_manager/screens/canceled_task_screen.dart';
+import 'package:task_manager/screens/forgot_pass_email_verify_screen.dart';
+import 'package:task_manager/screens/forgot_pass_otp_screen.dart';
 import 'package:task_manager/screens/inprogress_task_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
 import 'package:task_manager/screens/new_task_screen.dart';
+import 'package:task_manager/screens/profile_screen.dart';
+import 'package:task_manager/screens/reset_password_screen.dart';
+import 'package:task_manager/screens/signIn_screen.dart';
 import 'package:task_manager/screens/splash_screen.dart';
 import 'package:get/get.dart';
+import 'package:task_manager/widgets/tm_appbar.dart';
 
 class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});
 
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -32,7 +38,18 @@ class TaskManagerApp extends StatelessWidget {
             const MainBottomNavbarScreen(),
         NewTaskScreen.name: (context) => const NewTaskScreen(),
         CanceledTaskScreen.name: (context) => const CanceledTaskScreen(),
-        InProgressTaskScreen.name: (context) => const  InProgressTaskScreen(),
+        InProgressTaskScreen.name: (context) => const InProgressTaskScreen(),
+        SignInScreen.name: (context) => const SignInScreen(),
+        AddNewTaskScreen.name: (context) => const AddNewTaskScreen(),
+        ForgotPasswdEmailScreen.name: (context) =>
+            const ForgotPasswdEmailScreen(),
+        ForgotPasswdOTPScreen.name: (context) =>
+            ForgotPasswdOTPScreen(email: Get.arguments),
+        ResetPasswordScreen.name: (context) => ResetPasswordScreen(
+              email: Get.arguments['email'],
+              otp: Get.arguments['otp'],
+            ),
+        ProfileScreen.name : (context)=> const ProfileScreen()
       },
     );
   }
@@ -73,7 +90,8 @@ class TaskManagerApp extends StatelessWidget {
 
   OutlineInputBorder _inputBorder() {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: Colors.white));
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: Colors.white),
+    );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:task_manager/controller/completedTaskListController.dart';
 import 'package:task_manager/widgets/snackBar_message.dart';
 import '../widgets/task_card.dart';

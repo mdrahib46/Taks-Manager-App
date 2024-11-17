@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:task_manager/screens/profile_screen.dart';
@@ -7,6 +9,8 @@ import '../controller/authcontroller.dart';
 
 class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TMAppBar({super.key, this.isProfileScreenOpen = false});
+
+  static const String name = '/TaskManagerAppBar';
 
   final bool isProfileScreenOpen;
 
@@ -28,10 +32,9 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.green,
         title: Row(
           children: [
-            const CircleAvatar(
-              // backgroundImage: Image.asset('name'),,
-              backgroundColor: Colors.white,
-              radius: 16,
+            CircleAvatar(
+              backgroundImage: MemoryImage(
+                  base64Decode(AuthController.userData?.photo ?? '')),
             ),
             const SizedBox(width: 10),
             Expanded(
@@ -39,7 +42,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                   AuthController.userData?.userFullName ?? ' ',
+                    AuthController.userData?.userFullName ?? ' ',
                     style: const TextStyle(
                         fontSize: 14,
                         color: Colors.white,
@@ -47,7 +50,7 @@ class TMAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   Text(
                     AuthController.userData?.email ?? ' ',
-                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    style: const TextStyle(fontSize: 14, color: Colors.white),
                   ),
                 ],
               ),

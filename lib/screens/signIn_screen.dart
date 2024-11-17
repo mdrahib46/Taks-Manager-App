@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:task_manager/controller/signIn_controller.dart';
 import 'package:task_manager/screens/forgot_pass_email_verify_screen.dart';
 import 'package:task_manager/screens/main_bottom_navbar_screen.dart';
@@ -11,6 +10,7 @@ import 'package:task_manager/widgets/snackBar_message.dart';
 import '../widgets/screen_background.dart';
 
 class SignInScreen extends StatefulWidget {
+  static const String name = '/SignInScreen';
   const SignInScreen({super.key});
 
   @override
@@ -103,9 +103,9 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
           const SizedBox(height: 24),
           GetBuilder<SignInController>(
-            builder: (controller) {
+            builder: (signInController) {
               return Visibility(
-                visible: !controller.inProgress,
+                visible: !signInController.inProgress,
                 replacement: const CenterCircularProgressIndicator(),
                 child: ElevatedButton(
                   onPressed: _onTapNextButton,
